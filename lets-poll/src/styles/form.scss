@@ -1,0 +1,42 @@
+input {
+    &[type="text"] {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--bkg-color1);
+        color: var(--text-color2);
+        border: solid 1px var(--input-border);
+        transition: all 0.3s;
+        &:focus {
+            border-color: var(--input-border-focus);
+        }
+    }
+}
+.input-group {
+    margin-top: 25px;
+    label {
+        margin-bottom: 10px;
+        color: var(--text-color2);
+    }
+}
+
+.multuple-inp input:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    margin: 0 5px 0 0;
+}
+
+.btn {
+    background-color: var(--btn-color);
+    padding: 12px;
+    font-size: 18px;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+        box-shadow: 0px 0px 7px rgb(255 255 255 / 30%);
+        color: var(--bkg-color1);
+    }
+}

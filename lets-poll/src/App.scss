@@ -1,0 +1,50 @@
+@import "./styles/color";
+@import "./styles/flex-grid";
+@import "./styles/form";
+
+body {
+    background-color: var(--bkg-color3);
+    color: var(--text-color2);
+}
+
+label {
+    display: inline-block;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+section {
+    margin: 25px 0;
+}
+
+.card {
+    background-color: var(--bkg-color2);
+    padding: 30px 20px;
+    border-radius: 8px;
+    .card-heading {
+        border-bottom: solid 1px var(--bkg-color3);
+        color: var(--text-color1);
+        padding-bottom: 20px;
+    }
+}
+
+.separator {
+    border-top: dashed 1px var(--bkg-color3);
+    margin: 25px 0;
+}
+
+header {
+    height: 50px;
+    background: var(--bkg-color1);
+    color: var(--text-color1);
+    .logo {
+        font-size: 22px;
+    }
+}
+
+.poll-settings .input-group:first-of-type {
+    margin-top: 10px;
+}
