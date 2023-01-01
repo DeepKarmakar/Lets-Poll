@@ -30,7 +30,7 @@ input[type="radio"] {
 .btn {
     background-color: var(--btn-color);
     padding: 12px;
-    font-size: 18px;
+    font-size: 16px;
     color: #fff;
     border: 0;
     cursor: pointer;
@@ -38,5 +38,37 @@ input[type="radio"] {
     &:hover {
         box-shadow: 0px 0px 7px rgb(255 255 255 / 30%);
         color: var(--bkg-color1);
+    }
+    &.btn-sml{
+        font-size: 13px;
+        padding: 9px 50px;
+        border-radius: 20px;
+    }
+    &.btn-secondary{
+        background-color: var(--bkg-color3);
+        &:hover{
+            color: #fff;
+            background-color: var(--btn-color);
+        }
+    }
+}
+
+.popup-holder{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($color: #343434cc, $alpha: 0.8);
+    z-index: 9;
+    .popup-content{
+        width: 400px;
+        max-width: 100%;
+        background: var(--bkg-color1);
+        padding: 20px;
+        border-radius: 8px;
+        h1{
+            text-align: center;
+        } 
     }
 }
