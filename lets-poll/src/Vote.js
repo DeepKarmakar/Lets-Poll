@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import facebook from './assets/facebook.png';
 import instagram from './assets/instagram.png';
 import twitter from './assets/twitter.png';
 import whatsapp from './assets/whatsapp.png';
 import { Link } from 'react-router-dom';
+import { db } from "./firebase";
+import { getDoc, doc } from "@firebase/firestore";
 
 
 const Vote = () => {
@@ -13,9 +15,21 @@ const Vote = () => {
         setIsPopupShown(!isPopupShown);
     }
 
-    // const stop = (e) => {
-    //     e.stopPropagation();
-    // }
+    useEffect(() => {
+        const getPoll = async () => {
+            const snap = await getDoc(doc(db, 'polls', 'RcT9lMV18FsaXRNfEkT2'))
+
+            if (snap.exists()) {
+              console.log('signle ',snap.data())
+            }
+            else {
+              console.log("No such document")
+            }
+            
+        }
+
+        getPoll()
+    }, [])
 
 
     return (
