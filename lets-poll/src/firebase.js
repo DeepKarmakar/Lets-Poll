@@ -1,23 +1,29 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "@firebase/firestore";
+import { getFirestore, onSnapshot, orderBy, query, collection } from "@firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCMqqEzCWc8vUNSoXre3GGRe3c9-oD_Z68",
-  authDomain: "lets-poll-806b1.firebaseapp.com",
-  projectId: "lets-poll-806b1",
-  storageBucket: "lets-poll-806b1.appspot.com",
-  messagingSenderId: "137118585402",
-  appId: "1:137118585402:web:ee80baace6bb1488cb9b03",
-  measurementId: "G-KEGVZK2C75"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+  measurementId: process.env.REACT_APP_measurementId,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const db = getFirestore(app);
+
+export const streamPollListItems = async (pollListId, snapshot, error) => {
+  const itemsColRef = collection(db, 'polls', pollListId, 'poll')
+  const itemsQuery = await query(itemsColRef)
+  return onSnapshot(itemsQuery, snapshot, error);
+};

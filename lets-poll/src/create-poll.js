@@ -1,9 +1,11 @@
 import { db } from "./firebase";
 import { addDoc, collection } from "@firebase/firestore";
+import { useNavigate } from "react-router";
 
 
 const CreatePoll = () => {
     const firebaseRef = collection(db, 'polls');
+    const navigate = useNavigate();
 
 
     const handleSubmit = (e) => {
@@ -16,6 +18,13 @@ const CreatePoll = () => {
 
         try {
             addDoc(firebaseRef, formJson)
+                .then(res => {
+                    navigate(`/poll/${res.id}`);
+                    console.log(res.id);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         } catch (error) {
             console.log(error);
         }
@@ -44,10 +53,10 @@ const CreatePoll = () => {
                         <input type="text" placeholder="Option 4" name="option4" />
                     </div>
                     <div className="separator"></div>
-                    <div className="poll-settings mb-30">
+                    <div className="poll-settings mt-10">
                         <h2>Poll Settings</h2>
                         <div className="input-group">
-                            <label
+                            {/* <label
                                 htmlFor="singleChoice"
                                 className="d-block smaller-font"
                             >
@@ -55,7 +64,7 @@ const CreatePoll = () => {
                                     type="radio"
                                     name="pollType"
                                     id="singleChoice"
-                                    value="single_choice"
+                                    defaultValue="single_choice"
                                     defaultChecked
                                 />
                                 Single Choice
@@ -68,13 +77,19 @@ const CreatePoll = () => {
                                     type="radio"
                                     name="pollType"
                                     id="multipleChoice"
-                                    value="multiple_choice"
+                                    defaultValue="multiple_choice"
                                 />
                                 Multiple Choice
-                            </label>
+                            </label> */}
+                            <input 
+                                type="text" 
+                                placeholder="Your Name"
+                                name="craetedby" 
+                                defaultValue=""
+                                required  />
                         </div>
                     </div>
-                    <button className="btn w-100">Create Poll</button>
+                    <button className="btn w-100 mt-10">Create Poll</button>
                 </form>
             </div>
         </section>

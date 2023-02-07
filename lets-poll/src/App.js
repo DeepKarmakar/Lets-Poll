@@ -1,4 +1,6 @@
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Link, Route, BrowserRouter as Router, Routes, Navigate } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import "./App.scss";
 import CreatePoll from "./create-poll";
 import Vote from "./Vote";
@@ -21,10 +23,23 @@ const App = () => {
                 <div className="container">
                     <Routes>
                         <Route path="/" exact element={<CreatePoll />} />
-                        <Route path="/poll" element={<Vote />} />
-                        <Route path="/result" element={<Result />} />
+                        <Route path="/poll" element={<Navigate to="/" />} />
+                        <Route path="/poll/:pollId" element={<Vote />} />
+                        <Route path="/result/:pollId" element={<Result />} />
                     </Routes>
                 </div>
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={3000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
             </div>
         </Router>
     );
