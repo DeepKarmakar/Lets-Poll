@@ -1,12 +1,13 @@
 import { db } from "./firebase";
 import { addDoc, collection } from "@firebase/firestore";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 
 const CreatePoll = () => {
     const firebaseRef = collection(db, 'polls');
     const navigate = useNavigate();
-
+    const [ip,setIP] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,6 +31,20 @@ const CreatePoll = () => {
         }
 
     }
+
+    useEffect(() => {
+        const getMyIp = async () => {
+            await fetch('https://api.ipify.org?format=json').then(response => {
+              return response.json();
+            }).then((res) => {
+                console.log(res);
+                setIP(res.ip)
+            }).catch((err) => console.error('Problem fetching my IP', err))
+          }
+    
+          getMyIp()
+    }, [])
+
     return (
         <section>
             <div className="card">
@@ -86,6 +101,11 @@ const CreatePoll = () => {
                                 placeholder="Your Name"
                                 name="craetedby" 
                                 defaultValue=""
+                                required  />
+                            <input 
+                                type="hidden"
+                                name="IP" 
+                                defaultValue={ip}
                                 required  />
                         </div>
                     </div>

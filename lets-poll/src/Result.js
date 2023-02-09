@@ -22,7 +22,7 @@ const Result = () => {
     const [ groceryItems, setGroceryItems ] = useState([]);
 
     let result = {}
-    let totalCount;
+    let totalCount = 0;
 
     const togglePopup = () => {
         setIsPopupShown(!isPopupShown);
@@ -102,6 +102,9 @@ const Result = () => {
         }
 
         const getPercentage = (value) => {
+            if (!value) {
+                return value
+            }
             return ((value / totalCount) * 100).toFixed(2);
         }
 
