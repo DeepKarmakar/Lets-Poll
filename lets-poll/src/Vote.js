@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import facebook from './assets/facebook.png';
 import instagram from './assets/instagram.png';
 import twitter from './assets/twitter.png';
@@ -8,10 +8,13 @@ import { db } from "./firebase";
 import { getDoc, doc, addDoc, collection } from "@firebase/firestore";
 import { useNavigate, useParams } from "react-router";
 import { toast } from 'react-toastify';
+import { Context } from "./contexts/Context";
 
 
 
 const Vote = () => {
+    const getContextValue = useContext(Context);
+    const ip = getContextValue.userIP;
     const pollId = useParams().pollId;
     const navigate = useNavigate();
     const [isPopupShown, setIsPopupShown] = useState(false);
@@ -109,6 +112,11 @@ const Vote = () => {
                             </label>
                         </div>
                         <input type="text" name='pollBy' placeholder='Enter your Name' className='mt-10' required />
+                        <input 
+                            type="hidden"
+                            name="IP" 
+                            defaultValue={ip}
+                            required  />
                     </div>
                     <button className="btn w-100 mt-30">Submit</button>
                 </form>

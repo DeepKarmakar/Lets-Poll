@@ -1,13 +1,15 @@
 import { db } from "./firebase";
 import { addDoc, collection } from "@firebase/firestore";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { Context } from "./contexts/Context";
 
 
 const CreatePoll = () => {
+    const getContextValue = useContext(Context);
     const firebaseRef = collection(db, 'polls');
     const navigate = useNavigate();
-    const [ip,setIP] = useState('');
+    const ip = getContextValue.userIP;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,19 +33,6 @@ const CreatePoll = () => {
         }
 
     }
-
-    useEffect(() => {
-        const getMyIp = async () => {
-            await fetch('https://api.ipify.org?format=json').then(response => {
-              return response.json();
-            }).then((res) => {
-                console.log(res);
-                setIP(res.ip)
-            }).catch((err) => console.error('Problem fetching my IP', err))
-          }
-    
-          getMyIp()
-    }, [])
 
     return (
         <section>

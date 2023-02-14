@@ -5,6 +5,7 @@ import "./App.scss";
 import CreatePoll from "./create-poll";
 import Vote from "./Vote";
 import Result from "./Result";
+import ContextProvider from "./contexts/Context";
 
 const App = () => {
     return (
@@ -20,14 +21,16 @@ const App = () => {
                         </div>
                     </div>
                 </header>
-                <div className="container">
-                    <Routes>
-                        <Route path="/" exact element={<CreatePoll />} />
-                        <Route path="/poll" element={<Navigate to="/" />} />
-                        <Route path="/poll/:pollId" element={<Vote />} />
-                        <Route path="/result/:pollId" element={<Result />} />
-                    </Routes>
-                </div>
+                <ContextProvider>
+                    <div className="container">
+                        <Routes>
+                            <Route path="/" exact element={<CreatePoll />} />
+                            <Route path="/poll" element={<Navigate to="/" />} />
+                            <Route path="/poll/:pollId" element={<Vote />} />
+                            <Route path="/result/:pollId" element={<Result />} />
+                        </Routes>
+                    </div>
+                </ContextProvider>
                 <ToastContainer
                     position="bottom-center"
                     autoClose={3000}
