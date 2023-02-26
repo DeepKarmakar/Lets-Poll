@@ -5,10 +5,11 @@ import twitter from './assets/twitter.png';
 import whatsapp from './assets/whatsapp.png';
 import { Link } from 'react-router-dom';
 import { db } from "./firebase";
-import { getDoc, doc, addDoc, collection } from "@firebase/firestore";
+import { getDoc, doc, addDoc, collection, query, where, getDocs, updateDoc } from "@firebase/firestore";
 import { useNavigate, useParams } from "react-router";
 import { toast } from 'react-toastify';
 import { Context } from "./contexts/Context";
+import ConfirmationPopUp from './Components/ConfirmationPopUp';
 
 
 
@@ -18,7 +19,8 @@ const Vote = () => {
     const pollId = useParams().pollId;
     const navigate = useNavigate();
     const [isPopupShown, setIsPopupShown] = useState(false);
-    const [pollDetails, setPollDetails] = useState({}) 
+    const [pollDetails, setPollDetails] = useState({});
+    const [existPollId, setExistPollId] = useState('');
 
     const togglePopup = () => {
         setIsPopupShown(!isPopupShown);
@@ -31,7 +33,7 @@ const Vote = () => {
         navigateToHome()
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // read the form data
@@ -40,20 +42,62 @@ const Vote = () => {
         const formJson = Object.fromEntries(formData.entries());
         console.log(formJson);
 
-        try {
+        const isExist = async () => {
             const colRef = collection(db, 'polls', pollDetails.id, 'poll');
-            addDoc(colRef, formJson)
-                .then(res => {
-                    toast.success("Your Vote submitted successfully");
-                    navigate(`/result/${pollDetails.id}`);
-                    console.log(res);
+            const itemsQuery = await query(colRef, where("IP", "==", ip))
+            const querySnapshot = await getDocs(itemsQuery);
+            console.log(1);
+            if (querySnapshot.size) {
+                querySnapshot.forEach(data => {
+                    setExistPollId(data.id)
+                })
+                return true
+            }
+            return
+        }
 
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+        try {
+            if (await !isExist()) {
+                const colRef = collection(db, 'polls', pollDetails.id, 'poll');
+                addDoc(colRef, formJson)
+                    .then(res => {
+                        toast.success("Your Vote submitted successfully");
+                        navigate(`/result/${pollDetails.id}`);
+                        console.log(res);
+    
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const confirmEventHandeler = (data) => {
+        if (data == 'yes') {
+            const answer = document.getElementsByTagName('form')[0].elements.answer.value;
+            const pollBy = document.getElementsByTagName('form')[0].elements.pollBy.value;
+            const data = {
+                answer,
+                pollBy
+            };
+            const docRef = doc(db, 'polls', pollDetails.id, 'poll', existPollId);
+            updateDoc(docRef, data)
+            .then(() => {
+                toast.success("Your Vote Updated successfully");
+                navigate(`/result/${pollDetails.id}`);
+            })
+            .catch(error => {
+                toast.error("Error Occured");
+                console.log(error);
+            })
+            .finally(() => {
+                setExistPollId('')
+            })
+        } else {
+            setExistPollId('')
         }
     }
 
@@ -149,6 +193,11 @@ const Vote = () => {
                     </div>
                 </div>
             }
+            {existPollId != '' && (
+                <ConfirmationPopUp 
+                    confirmEventHandeler={confirmEventHandeler}
+                    detail="You have already voted. Do you want to Update?"  />
+            )}
         </section>
     )
 }

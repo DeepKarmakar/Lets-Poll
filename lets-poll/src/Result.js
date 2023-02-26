@@ -17,9 +17,9 @@ const Result = () => {
     const pollId = useParams().pollId;
     const navigate = useNavigate();
     const [isPopupShown, setIsPopupShown] = useState(false);
-    const [pollDetails, setPollDetails] = useState({}) 
-    const [pollResult, setPollResult] = useState({totalCount: 1, data: []}) 
-    const [ groceryItems, setGroceryItems ] = useState([]);
+    const [pollDetails, setPollDetails] = useState({});
+    const [pollResult, setPollResult] = useState({totalCount: 1, data: []});
+    let initialResult;
 
     let result = {}
     let totalCount = 0;
@@ -63,6 +63,7 @@ const Result = () => {
                 count: 0,
                 pollBy: []
               };
+              initialResult = JSON.parse(JSON.stringify(result));
             }
             else {
                 navigateToHome();
@@ -72,6 +73,7 @@ const Result = () => {
         const getPolls = async () => {
             await streamPollListItems(pollId, (querySnapshot) => {
                     totalCount = querySnapshot.size;
+                    result = JSON.parse(JSON.stringify(initialResult));
                     querySnapshot.docs.map(docSnapshot => {
                         result[docSnapshot.data().answer].count +=1;
                         result[docSnapshot.data().answer].pollBy.push(docSnapshot.data().pollBy);
