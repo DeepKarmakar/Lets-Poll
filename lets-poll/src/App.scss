@@ -3,123 +3,141 @@
 @import "./styles/form";
 
 body {
-    background-color: var(--bkg-color3);
-    color: var(--text-color2);
+	background-color: var(--bkg-color3);
+	color: var(--text-color2);
 }
 
 label {
-    display: inline-block;
+	display: inline-block;
 }
 
 .container {
-    max-width: 500px;
-    margin: 0 auto;
+	max-width: 500px;
+	margin: 0 auto;
 }
 
 section {
-    margin: 25px 0;
+	margin: 25px 0;
 }
 
 .card {
-    background-color: var(--bkg-color2);
-    padding: 30px 20px;
-    border-radius: 8px;
-    .card-heading {
-        border-bottom: solid 1px var(--bkg-color3);
-        color: var(--text-color1);
-        padding-bottom: 20px;
-    }
+	background-color: var(--bkg-color2);
+	padding: 30px 20px;
+	border-radius: 8px;
+
+	.card-heading {
+		border-bottom: solid 1px var(--bkg-color3);
+		color: var(--text-color1);
+		padding-bottom: 20px;
+	}
 }
 
-.br-b{
-    border-bottom: solid 1px var(--bkg-color3);
+.br-b {
+	border-bottom: solid 1px var(--bkg-color3);
 }
 
 .separator {
-    border-top: dashed 1px var(--bkg-color3);
-    margin: 25px 0;
+	border-top: dashed 1px var(--bkg-color3);
+	margin: 25px 0;
 }
-.cur-point{
-    cursor: pointer;
+
+.cur-point {
+	cursor: pointer;
 }
 
 header {
-    height: 50px;
-    background: var(--bkg-color1);
-    color: var(--text-color1);
-    .logo {
-        font-size: 22px;
-    }
+	height: 50px;
+	background: var(--bkg-color1);
+	color: var(--text-color1);
+
+	.logo {
+		font-size: 22px;
+		color: #d8d8d8;
+
+		&:hover {
+			color: #f0f0f0;
+		}
+	}
 }
 
 .poll-settings .input-group:first-of-type {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 
 // Vote page start
-.radio-group{
-    background-color: var(--bkg-color1);
-    margin: 0 0 1px;
-    label{
-        margin: 0;
-        padding:  14px 12px;
-        width: 100%;
-        cursor: pointer;
-        input{
-            margin-right: 7px;
-        }
-    }
+.radio-group {
+	background-color: var(--bkg-color1);
+	margin: 0 0 1px;
+
+	label {
+		margin: 0;
+		padding: 14px 12px;
+		width: 100%;
+		cursor: pointer;
+
+		input {
+			margin-right: 7px;
+		}
+	}
 }
+
 // Vote page end
 
 // result page start
-.result-wrapper{
-    background-color: var(--bkg-color1);
-    border-radius: 10px;
+.result-wrapper {
+	background-color: var(--bkg-color1);
+	border-radius: 10px;
 }
-.bar{
-    height: 10px;
-    width: 100%;
-    border: solid 1px var(--bkg-color3);
-    border-radius: 10px;
-    position: relative;
 
-    .percent{
-        border-radius: 10px; 
-        background-color: var(--btn-color);
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        bottom: -1px;
+.bar {
+	height: 10px;
+	width: 100%;
+	border: solid 1px var(--bkg-color3);
+	border-radius: 10px;
+	position: relative;
 
-    }
+	.percent {
+		border-radius: 10px;
+		background-color: var(--btn-color);
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		bottom: -1px;
+
+	}
 }
-.pollByDetails[title]:not([title=""]){
-    cursor: pointer;
-    &:hover:after{
-        content: attr(title);
-        padding: 5px 10px;
-        background: #8c8c8c;
-        border-radius: 5px;
-        position: absolute;
-        top: -5px;
-        left: calc(100% + 7px);
-    }
-    &:hover::before {
-        content: "";
-        border-style: solid;
-        border-width: 5px 5px 5px 0;
-        border-color: transparent #8c8c8c transparent transparent;
-        position: absolute;
-        left: calc(100% + 2px);
-        top: 3px;
-    }
+
+.pollByDetails[title]:not([title=""]) {
+	cursor: pointer;
+
+	&:hover:after {
+		content: attr(title);
+		padding: 5px 10px;
+		background: #8c8c8c;
+		border-radius: 5px;
+		position: absolute;
+		top: -5px;
+		left: calc(100% + 7px);
+	}
+
+	&:hover::before {
+		content: "";
+		border-style: solid;
+		border-width: 5px 5px 5px 0;
+		border-color: transparent #8c8c8c transparent transparent;
+		position: absolute;
+		left: calc(100% + 2px);
+		top: 3px;
+	}
 }
-.noWhitePace{
-    white-space: nowrap;
+
+.noWhitePace {
+	white-space: nowrap;
 }
-.colord8{
-    color: #d8d8d8;
+
+.colord8 {
+	color: #d8d8d8;
 }
+
 // result page end
