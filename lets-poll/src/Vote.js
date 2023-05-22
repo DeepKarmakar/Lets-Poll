@@ -175,9 +175,10 @@ const Vote = () => {
 					</div>
 					<button className="btn w-100 mt-30">Submit</button>
 				</form>
-				<div className="d-flex mt-30 justify-content-center">
-					<Link to={`/result/${pollDetails.id}`}><button className="btn btn-secondary btn-sml mr-10">Result</button></Link>
-					<button className="btn btn-secondary btn-sml ml-10" onClick={togglePopup}>Share</button>
+				<div className="d-flex mt-30 justify-content-center gap-15">
+					<Link to={`/result/${pollDetails.id}`}><button className="btn btn-secondary btn-sml">Result</button></Link>
+					<button className="btn btn-secondary btn-sml" onClick={togglePopup}>Share</button>
+					<Link to={`/`}><button className="btn btn-secondary btn-sml">Create New</button></Link>
 				</div>
 			</div>
 			{isPopupShown &&

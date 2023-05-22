@@ -182,9 +182,10 @@ const Result = () => {
                     </div> */}
 				</div>
 
-				<div className="d-flex mt-30 justify-content-center">
-					<Link to={`/poll/${pollId}`}><button className="btn btn-secondary btn-sml mr-10">Vote</button></Link>
-					<button className="btn btn-secondary btn-sml ml-10" onClick={togglePopup}>Share</button>
+				<div className="d-flex mt-30 justify-content-center gap-15">
+					<Link to={`/poll/${pollId}`}><button className="btn btn-secondary btn-sml">Vote</button></Link>
+					<button className="btn btn-secondary btn-sml" onClick={togglePopup}>Share</button>
+					<Link to={`/`}><button className="btn btn-secondary btn-sml">Create New</button></Link>
 				</div>
 			</div>
 			{isPopupShown &&
